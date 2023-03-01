@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  web:
+    build: .
+    # shm_size: '8gb'
+    image: kiddee-chat-bot
+    container_name: kiddee-chat-bot
+    restart: always
+    environment: 
+      - PORT=3000
+    ports: 
+      - "80:3000" 
+    volumes: 
+      - ./app:/app 

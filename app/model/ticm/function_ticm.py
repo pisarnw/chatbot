@@ -6,6 +6,8 @@ import glob
 def search_str(file_path, word):
     with open(file_path, 'r') as file:
         content = file.read()
+        print('====')
+        print(content)
         if word in content:
             return 1
         else:
@@ -25,20 +27,20 @@ def search_similar_txt(text_file,text) :
     # print(text_file,'confident :',confidence)
     return text_file, confidence
 
-def context_mapping(question, category = False) :
+def context_mapping(question_org, category = False) :
     # threshold = 0.35, category = False
     # threshold = 0.40, category = True
     select_text_files = []
     cut_words= ['อย่างไร','ใคร','หมายถึงอะไร']
-    question = question.replace('คืออะไร','คือ')
+    question = question_org.replace('คืออะไร','คือ')
     for cut_word in cut_words :
         question = question.replace(cut_word,' ')
 
     if category == True :
-        folder_path = 'model/data_context/context_cat/'
+        folder_path = '/app/model/data_context/context_cat/'
         threshold = 0.40
     else : 
-        folder_path = 'model/data_context/context_nocat/'
+        folder_path = '/app/model/data_context/context_nocat/'
         threshold = 0.35
         
     text_paths = glob.glob(folder_path+'*.txt')
@@ -60,11 +62,11 @@ def context_mapping(question, category = False) :
         cotext += '\n\n'
 
     to_predict = [{ "context": cotext,
-                    "qas": [{ "question": question,
+                    "qas": [{ "question": question_org,
                             "id": "0",}] }]
     # print(to_predict)
     return to_predict
 
 
-question = 'ความเสี่ยงต่อผลการดำเนินงานของกิจการ คืออะไร'
-context_mapping(question, category = False)
+# question = 'ความเสี่ยงต่อผลการดำเนินงานของกิจการ คืออะไร'
+# context_mapping(question, category = False)

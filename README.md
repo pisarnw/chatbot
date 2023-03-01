@@ -33,3 +33,7 @@ heroku stack:set container
 git push heroku main
 ```
 # chatbot
+
+#ขั้นตอนการสร้าง image บน docker 
+
+    % docker-compose up -d
