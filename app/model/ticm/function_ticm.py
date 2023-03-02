@@ -35,10 +35,10 @@ def context_mapping(question_org, category = False) :
         question = question.replace(cut_word,' ')
 
     if category == True :
-        folder_path = '/app/model/data_context/context_cat/'
+        folder_path = './app/model/data_context/context_cat/'
         threshold = 0.40
     else : 
-        folder_path = '/app/model/data_context/context_nocat/'
+        folder_path = './app/model/data_context/context_nocat/'
         threshold = 0.35
         
     text_paths = glob.glob(folder_path+'*.txt')

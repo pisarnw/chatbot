@@ -1,8 +1,3 @@
-# FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
-
-# COPY ./requirements.txt /app/requirements.txt
-
-# RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 FROM python:3.8
  
 RUN apt-get update && apt-get install -y python3-opencv 
@@ -19,4 +14,6 @@ COPY ./app /app
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 ENV APP_HOME /app  
 
-CMD exec gunicorn --bind :$PORT --workers 1 --timeout 8000 --worker-class uvicorn.workers.UvicornWorker  --threads 8 app.bot_api:app
+ENV PORT 3000
+
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 8000 --worker-class uvicorn.workers.UvicornWorker  --threads 8 app.bot_api:app

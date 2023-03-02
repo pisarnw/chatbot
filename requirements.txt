@@ -13,3 +13,6 @@ pythainlp==3.1.1
 ## question answer ###
 simpletransformers==0.63.9
 torch==1.13.1
+
+## classification question ###
+sentence_transformers==2.2.2
