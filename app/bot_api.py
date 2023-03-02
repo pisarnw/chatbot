@@ -15,7 +15,7 @@ import numpy as np
 # load model
 cuda_available = torch.cuda.is_available()
 model = QuestionAnsweringModel(
-    "camembert", "./app/model/qanlp/outputs/best_model",use_cuda=cuda_available
+    "xlmroberta", "./app/model/qanlp/xlm-roberta-large-squad2-118/best_model",use_cuda=cuda_available
 )
 
 def question_answer_funtion(input):
@@ -23,7 +23,6 @@ def question_answer_funtion(input):
     output=predictions[0]['answer'][np.argmin(raw_outputs[0]['probability'])]
     if output == "empty" :
         output = ""
-    
 
     return output
 
@@ -40,13 +39,13 @@ app = FastAPI()
 #     output = question_answer_funtion(context_to_predict)
 #     return output  # None = QA with no answer
 
-@app.get("/chat/{line}/")
+@app.get("/chat")
 async def context_mapping_function(line:str):
     context_to_predict = context_mapping(line, category = False)
     # if context_to_predict[0]["context"] == "" :
         #classifition
     output = question_answer_funtion(context_to_predict)
-    return output  # None = QA with no answer
+    return  PlainTextResponse(output) # None = QA with no answer
 
 # @app.get("/chat")
 # async def echo(line: str):
