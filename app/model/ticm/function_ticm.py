@@ -6,8 +6,6 @@ import glob
 def search_str(file_path, word):
     with open(file_path, 'r') as file:
         content = file.read()
-        print('====')
-        print(content)
         if word in content:
             return 1
         else:
